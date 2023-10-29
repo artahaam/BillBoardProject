@@ -28,6 +28,7 @@ class Owner(Base):
     id = Column(Integer, primary_key=True, index=True, nullable = False)
     name = Column(String)
     phone_number = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow())
     # billboards = relationship("BillBoard")
 
 

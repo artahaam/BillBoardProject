@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class OwnerBase(BaseModel):
@@ -12,8 +13,6 @@ class OwnerAdd(OwnerBase):
     pass
     
 
-
-
 class BillBoardBase(BaseModel):
     location : str
     width : int
@@ -23,6 +22,7 @@ class BillBoardBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class BillBoardAdd(BillBoardBase):
     code : str
     rent : int
@@ -30,11 +30,12 @@ class BillBoardAdd(BillBoardBase):
     reserved_until : str
     owner_id : int
 
-        
 
 class BillBoardRead(BillBoardAdd):
+    id : int
+    created_at : datetime
     # owner : OwnerBase
-    pass
+    
 
 
 class BillBoardResponse(BillBoardBase):
@@ -42,8 +43,10 @@ class BillBoardResponse(BillBoardBase):
 
 
 class OwnerRead(OwnerAdd):
+    id : int
+    created_at : datetime
     # billboards : list[BillBoardAdd]
-    pass
+    
 
 
 class UserBase(BaseModel):
@@ -58,4 +61,5 @@ class UserAdd(UserBase):
 
 class UserShow(UserBase):
     id : int
-    pass
+    created_at : datetime
+    
