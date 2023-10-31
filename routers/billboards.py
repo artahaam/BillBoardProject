@@ -4,7 +4,7 @@ from databases import get_db
 import schemas
 import crud
 import oauth2
-
+import models
 router = APIRouter(prefix='/admin', tags=['billboards',])
 
 
@@ -23,9 +23,8 @@ async def get_billboard_by_id(id:int, db: Session = Depends(get_db)):
 
 @router.get('/billboards/', response_model=list[schemas.BillBoardRead])
 async def get_all_billboards(db: Session = Depends(get_db),
-                            #  credentials: str = Depends(oauth2.get_current_user)
+                            #  current_user: str = Depends(oauth2.get_current_user)
                              ):
-    # print(f'credentials: \n{credentials}\n')
     billboards = await crud.read_all_billboards(db=db)
     if not billboards:
         raise HTTPException(404, 'no billboards yet')

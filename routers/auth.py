@@ -17,7 +17,7 @@ async def login(user_credentials:OAuth2PasswordRequestForm=Depends(), db: Sessio
         raise  HTTPException(status.HTTP_403_FORBIDDEN, 'Invalid credentials')
     if not await password_verify(user_credentials.password, user.password):
         raise  HTTPException(status.HTTP_403_FORBIDDEN, 'Invalid credentials')
-    access_token = await oauth2.create_acces_token(data={'user_phone_number':user.phone_number,})
+    access_token = await oauth2.create_acces_token(data={'phone_number':user.phone_number,})
     token = schemas.Token(access_token=access_token, token_type='bearer')    
     # return {"access_token" : access_token, "token_type" : "bearer"}
     return token

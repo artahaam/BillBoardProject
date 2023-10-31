@@ -69,11 +69,7 @@ class UserShow(UserBase):
 class Token(BaseModel):
     access_token : str
     token_type : str
-    # class Config:
-    #     orm_mode = True
 
 
 class TokenData(BaseModel):
     phone_number : str | None = None
-    # class Config:
-    #     orm_mode = True
