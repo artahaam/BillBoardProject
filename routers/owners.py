@@ -4,7 +4,7 @@ from databases import get_db
 import schemas
 import crud
 
-router = APIRouter(prefix='/admin',)
+router = APIRouter(prefix='/admin',tags=['owners',])
 
 
 @router.post('/owners/add', response_model=schemas.OwnerAdd)

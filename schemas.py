@@ -58,8 +58,22 @@ class UserBase(BaseModel):
 class UserAdd(UserBase):
     password : str
     
-
+class UserLogin(UserAdd):
+    pass
+    
 class UserShow(UserBase):
     id : int
     created_at : datetime
+
     
+class Token(BaseModel):
+    access_token : str
+    token_type : str
+    # class Config:
+    #     orm_mode = True
+
+
+class TokenData(BaseModel):
+    phone_number : str | None = None
+    # class Config:
+    #     orm_mode = True

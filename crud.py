@@ -5,7 +5,11 @@ import models, schemas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
 async def hash(password):
     return pwd_context.hash(password)
-    
+
+
+async def password_verify(raw_password, hashed_password):
+    return pwd_context.verify(raw_password, hashed_password)
+
 
 async def read_billboard_by_id(db:Session, billboard_id:int):
     return db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id).first()

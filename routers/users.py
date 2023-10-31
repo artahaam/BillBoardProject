@@ -3,8 +3,11 @@ from sqlalchemy.orm import Session
 from databases import get_db
 import schemas
 import crud
+from oauth2 import get_current_user
 
-router = APIRouter()
+router = APIRouter(tags=['users'],
+                #    dependencies=[Depends(get_current_user)]
+                   )
 
 
 @router.post('/user/new', response_model=schemas.UserShow)
