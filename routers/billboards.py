@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from databases import get_db
 import schemas
@@ -28,4 +28,9 @@ async def get_all_billboards(db: Session = Depends(get_db),
     billboards = await crud.read_all_billboards(db=db)
     if not billboards:
         raise HTTPException(404, 'no billboards yet')
+    # user = db.query(models.User).filter(models.User.phone_number==current_user.phone_number).first()
+    # if user.phone_number == '09162456790':
+    #     return billboards 
+    # else:
+    #     raise HTTPException(status.HTTP_403_FORBIDDEN, 'You are not allowd')
     return billboards 

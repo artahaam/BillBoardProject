@@ -9,6 +9,7 @@ class OwnerBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class OwnerAdd(OwnerBase):
     pass
     
@@ -34,8 +35,8 @@ class BillBoardAdd(BillBoardBase):
 class BillBoardRead(BillBoardAdd):
     id : int
     created_at : datetime
-    # owner : OwnerBase
-    
+    owner : OwnerBase
+    # 
 
 
 class BillBoardResponse(BillBoardBase):
@@ -45,7 +46,7 @@ class BillBoardResponse(BillBoardBase):
 class OwnerRead(OwnerAdd):
     id : int
     created_at : datetime
-    # billboards : list[BillBoardAdd]
+    billboards : list[BillBoardAdd]
     
 
 
@@ -58,8 +59,10 @@ class UserBase(BaseModel):
 class UserAdd(UserBase):
     password : str
     
+    
 class UserLogin(UserAdd):
     pass
+  
     
 class UserShow(UserBase):
     id : int

@@ -29,7 +29,7 @@ class Owner(Base):
     name = Column(String)
     phone_number = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow())
-    # billboards = relationship("BillBoard")
+    billboards = relationship("BillBoard")
 
 
 class User(Base):

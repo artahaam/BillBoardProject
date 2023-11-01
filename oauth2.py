@@ -24,14 +24,12 @@ async def create_acces_token(data:dict):
 async def verify_access_token(token:str, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
-        print(f'payload:{payload}')
         phone_number = payload.get("phone_number")
         if not phone_number:
             raise credentials_exception
         token_data = TokenData(phone_number=phone_number)
     except JWTError:
         raise credentials_exception
-
     return token_data
 
 
@@ -39,9 +37,7 @@ async def get_current_user(token:str = Depends(oauth2_scheme), db:Session=Depend
     credentials_exception = HTTPException(401, detail='could not validate credentials',
                                           headers={'WWW-Authenticate':'Bearer'})
     token = await verify_access_token(token, credentials_exception)
-    print(f'token:{token}')
     user = db.query(models.User).filter(models.User.phone_number==token.phone_number).first()
-    print(f'user:\n{user}')
     return user
 
     
