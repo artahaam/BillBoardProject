@@ -34,3 +34,8 @@ async def get_all_billboards(db: Session = Depends(get_db),
     # else:
     #     raise HTTPException(status.HTTP_403_FORBIDDEN, 'You are not allowd')
     return billboards 
+
+@router.put('/billboard/update/{id}', response_model=schemas.BillBoardAdd)
+async def update_billboard(billboard:schemas.BillBoardAdd, id:int, db: Session=Depends(get_db)):
+    return await crud.update_billboard(billboard=billboard, billboard_id=id, db=db)
+    

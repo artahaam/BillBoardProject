@@ -32,3 +32,8 @@ async def get_owner_by_id(id:int, db:Session = Depends(get_db)):
 async def update_owner(owner:schemas.OwnerAdd, id:int, db:Session=Depends(get_db)):
     return await crud.update_owner(db=db, owner=owner, owner_id=id)
 
+
+@router.delete('/owner/delete/{id}')
+async def delete_owner(id:int, db:Session=Depends(get_db)):
+    await crud.delete_owner(db=db, owner_id=id)
+
