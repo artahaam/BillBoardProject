@@ -19,10 +19,16 @@ async def get_all_owners(db:Session = Depends(get_db)):
         raise HTTPException(404, 'no owners yet')
     return owners
 
+
 @router.get('/owner/{id}', response_model=schemas.OwnerRead)
 async def get_owner_by_id(id:int, db:Session = Depends(get_db)):
     owner =  await crud.read_owner_by_id(db=db, owner_id = id)
     if not owner:
         raise HTTPException(404, f'no owner found with id:{id}')
     return owner    
+
+
+@router.put('/owner/update/{id}', response_model=schemas.OwnerAdd)
+async def update_owner(owner:schemas.OwnerAdd, id:int, db:Session=Depends(get_db)):
+    return await crud.update_owner(db=db, owner=owner, owner_id=id)
 

@@ -19,7 +19,7 @@ class BillBoard(Base):
     reserved_until = Column(String, default=None)
     created_at = Column(DateTime, default=datetime.utcnow())
     owner_id = Column(Integer, ForeignKey("owners.id", ondelete="CASCADE"), nullable=False)
-    owner = relationship("Owner")
+    owner = relationship("Owner", back_populates='billboards')
     
 
 class Owner(Base):
@@ -29,7 +29,7 @@ class Owner(Base):
     name = Column(String)
     phone_number = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow())
-    billboards = relationship("BillBoard")
+    billboards = relationship("BillBoard", back_populates='owner')
 
 
 class User(Base):
