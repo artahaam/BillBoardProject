@@ -97,3 +97,14 @@ async def read_all_users(db=Session):
 
 async def read_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
+
+
+async def delete_billboard(billboard_id: int, db=Session):
+    query = db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id)
+    db_billboard = query.first()
+    if db_billboard == None:
+        raise HTTPException(
+            404, f'billboard with the id:{billboard_id} does not exist')
+    query.delete(synchronize_session=False)
+    db.commit()
+
