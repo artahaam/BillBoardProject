@@ -29,3 +29,13 @@ async def get_all_users(db:Session = Depends(get_db)):
     if not users:
         raise HTTPException(404, 'no users yet')
     return users   
+
+
+@router.put('/admin/user/update/{id}', response_model=schemas.UserBase)
+async def update_user(user:schemas.UserBase, id:int, db: Session=Depends(get_db)):
+    return await crud.update_user(user=user, user_id=id, db=db)
+
+
+@router.delete('/admin/user/delete/{id}')
+async def delete_user(id:int, db:Session=Depends(get_db)):
+    await crud.delete_user(db=db, user_id=id)

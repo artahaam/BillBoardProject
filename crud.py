@@ -43,6 +43,16 @@ async def update_billboard(billboard: schemas.BillBoardAdd, billboard_id: int, d
     return db_billboard
 
 
+async def delete_billboard(billboard_id: int, db=Session):
+    query = db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id)
+    db_billboard = query.first()
+    if db_billboard == None:
+        raise HTTPException(
+            404, f'billboard with the id:{billboard_id} does not exist')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
 async def create_owner(db: Session, owner: schemas.OwnerBase):
     new_owner = models.Owner(**owner.dict())
     db.add(new_owner)
@@ -99,12 +109,23 @@ async def read_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 
-async def delete_billboard(billboard_id: int, db=Session):
-    query = db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id)
-    db_billboard = query.first()
-    if db_billboard == None:
+async def update_user(user: schemas.UserAdd, user_id: int, db=Session):
+    query = db.query(models.User).filter(models.User.id == user_id)
+    db_user = query.first()
+    if db_user == None:
+        raise HTTPException(404, f'user with the id:{user_id} does not exist')
+    query.update(user.dict(), synchronize_session=False)
+    db.commit()
+    print(db_user)
+    return db_user
+
+
+async def delete_user(user_id: int, db=Session):
+    query = db.query(models.User).filter(models.User.id == user_id)
+    db_user = query.first()
+    if db_user == None:
         raise HTTPException(
-            404, f'billboard with the id:{billboard_id} does not exist')
+            404, f'user with the id:{user_id} does not exist')
     query.delete(synchronize_session=False)
     db.commit()
-
+    

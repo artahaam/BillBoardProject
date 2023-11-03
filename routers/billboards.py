@@ -5,7 +5,9 @@ import schemas
 import crud
 import oauth2
 import models
-router = APIRouter(prefix='/admin', tags=['billboards',])
+router = APIRouter(prefix='/admin', tags=['billboards',],                
+                   #dependencies=[Depends(get_current_user)
+                )
 
 
 @router.post('/billboards/add', response_model=schemas.BillBoardRead)
