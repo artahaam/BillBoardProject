@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from databases import engine, get_db
 from routers import billboards, owners, users, auth
 import models 
-
+from config import settings
 
 app = FastAPI()
 app.include_router(owners.router)

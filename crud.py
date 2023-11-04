@@ -6,7 +6,6 @@ import schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-
 async def hash(password):
     return pwd_context.hash(password)
 
@@ -23,6 +22,7 @@ async def create_billboard(db: Session, billboard: schemas.BillBoardAdd):
     return new_billboard
 
 
+
 async def read_billboard_by_id(db: Session, billboard_id: int):
     return db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id).first()
 
@@ -33,10 +33,12 @@ async def read_all_billboards(db: Session):
 
 
 async def update_billboard(billboard: schemas.BillBoardAdd, billboard_id: int, db=Session):
-    query = db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id)
+    query = db.query(models.BillBoard).filter(
+        models.BillBoard.id == billboard_id)
     db_billboard = query.first()
     if db_billboard == None:
-        raise HTTPException(404, f'owner with the id:{billboard_id} does not exist')
+        raise HTTPException(
+            404, f'owner with the id:{billboard_id} does not exist')
     query.update(billboard.dict(), synchronize_session=False)
     db.commit()
     print(db_billboard)
@@ -44,7 +46,8 @@ async def update_billboard(billboard: schemas.BillBoardAdd, billboard_id: int, d
 
 
 async def delete_billboard(billboard_id: int, db=Session):
-    query = db.query(models.BillBoard).filter(models.BillBoard.id == billboard_id)
+    query = db.query(models.BillBoard).filter(
+        models.BillBoard.id == billboard_id)
     db_billboard = query.first()
     if db_billboard == None:
         raise HTTPException(
@@ -128,4 +131,3 @@ async def delete_user(user_id: int, db=Session):
             404, f'user with the id:{user_id} does not exist')
     query.delete(synchronize_session=False)
     db.commit()
-    

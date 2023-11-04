@@ -3,3 +3,5 @@ sql_app.db
 __pycache__/
 .env
 .vscode/
+alembic/
+alembic.ini
