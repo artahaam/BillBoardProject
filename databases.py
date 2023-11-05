@@ -8,6 +8,7 @@ from config import settings
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:p$tgr$9052$ql@localhost:5433/billboard"
 SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
 
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL,
                        #    connect_args={"check_same_thread": False}
                        )
