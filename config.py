@@ -17,5 +17,3 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-
-# "postgresql://postgres:p$tgr$9052$ql@localhost:5433/billboard"

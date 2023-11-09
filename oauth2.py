@@ -9,22 +9,22 @@ import models
 from schemas import Token, TokenData
 from config import settings
 
-oauth2_scheme  = OAuth2PasswordBearer(tokenUrl='login')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 
-async def create_acces_token(data:dict):
+async def create_acces_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp":expire})
+    to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, key=SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 
-async def verify_access_token(token:str, credentials_exception):
+async def verify_access_token(token: str, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
         phone_number = payload.get("phone_number")
@@ -36,11 +36,10 @@ async def verify_access_token(token:str, credentials_exception):
     return token_data
 
 
-async def get_current_user(token:str = Depends(oauth2_scheme), db:Session=Depends(get_db)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(401, detail='could not validate credentials',
-                                          headers={'WWW-Authenticate':'Bearer'})
+                                          headers={'WWW-Authenticate': 'Bearer'})
     token = await verify_access_token(token, credentials_exception)
-    user = db.query(models.User).filter(models.User.phone_number==token.phone_number).first()
+    user = db.query(models.User).filter(
+        models.User.phone_number == token.phone_number).first()
     return user
-
-    

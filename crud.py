@@ -6,6 +6,7 @@ import schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 async def hash(password):
     return pwd_context.hash(password)
 
@@ -20,7 +21,6 @@ async def create_billboard(db: Session, billboard: schemas.BillBoardAdd):
     db.commit()
     db.refresh(new_billboard)
     return new_billboard
-
 
 
 async def read_billboard_by_id(db: Session, billboard_id: int):

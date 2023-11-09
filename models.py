@@ -1,5 +1,5 @@
 from databases import Base
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, TIMESTAMP
 from sqlalchemy.orm import relationship
 
 from datetime import datetime
@@ -21,6 +21,8 @@ class BillBoard(Base):
     owner_id = Column(Integer, ForeignKey(
         "owners.id", ondelete="CASCADE"), nullable=False)
     owner = relationship("Owner", back_populates='billboards')
+    test_col = Column(Integer)
+    
 
 
 class Owner(Base):
