@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 from datetime import datetime
 
 
@@ -46,9 +47,8 @@ class BillBoardResponse(BillBoardBase):
 class OwnerRead(OwnerAdd):
     id : int
     created_at : datetime
-    billboards : list[BillBoardAdd]
+    billboards : List[BillBoardAdd]
     
-
 
 class UserBase(BaseModel):
     phone_number : str

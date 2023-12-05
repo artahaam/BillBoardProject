@@ -2,6 +2,6 @@ venv/
 sql_app.db
 __pycache__/
 .env
-.vscode/
+vscode/
 # alembic/
 # alembic.ini
